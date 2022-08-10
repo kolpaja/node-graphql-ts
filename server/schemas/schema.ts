@@ -1,4 +1,7 @@
-import { projects, clients } from '../../sampledata';
+import Project from './project/project.model';
+import Client from './client/client.model';
+// import ClientType from '@/schemas/client/client.type';
+import ProjectType from './project/project.type';
 
 import {
     GraphQLID,
@@ -7,9 +10,7 @@ import {
     GraphQLSchema,
     GraphQLString,
 } from 'graphql';
-import IClient from '@/utils/interfaces/client.interface.js';
 
-//Client type
 const ClientType = new GraphQLObjectType({
     name: 'Client',
     fields: () => ({
@@ -20,24 +21,21 @@ const ClientType = new GraphQLObjectType({
     }),
 });
 
-//Project type
-const ProjectType = new GraphQLObjectType({
-    name: 'Project',
-    fields: () => ({
-        id: { type: GraphQLID },
-        name: { type: GraphQLString },
-        description: { type: GraphQLString },
-        status: { type: GraphQLString },
-        client: {
-            type: ClientType,
-            resolve(parent, args) {
-                return clients.find(
-                    (client: IClient) => client.id === parent.clientId
-                );
-            },
-        },
-    }),
-});
+// export const ProjectType = new GraphQLObjectType({
+//     name: 'Project',
+//     fields: () => ({
+//         id: { type: GraphQLID },
+//         name: { type: GraphQLString },
+//         description: { type: GraphQLString },
+//         status: { type: GraphQLString },
+//         client: {
+//             type: ClientType,
+//             resolve(parent, args) {
+//                 return Client.findById(parent.clientId);
+//             },
+//         },
+//     }),
+// });
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -45,29 +43,27 @@ const RootQuery = new GraphQLObjectType({
         clients: {
             type: new GraphQLList(ClientType),
             resolve(parent, args) {
-                return clients;
+                return Client.find();
             },
         },
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return clients.find((client: IClient) => client.id === args.id);
+                return Client.findById(args.id);
             },
         },
         projects: {
             type: new GraphQLList(ProjectType),
             resolve(parent, args) {
-                return projects;
+                return Project.find();
             },
         },
         project: {
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.find(
-                    (client: IClient) => client.id === args.id
-                );
+                return Project.findById(args.id);
             },
         },
     },
