@@ -13,7 +13,7 @@ const ProjectSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['Not started', 'In Progress', 'Completed'],
+            enum: ['Not Started', 'In Progress', 'Completed'],
         },
         clientId: {
             type: Schema.Types.ObjectId,
