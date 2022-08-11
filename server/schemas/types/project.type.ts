@@ -1,8 +1,9 @@
 import { GraphQLID, GraphQLObjectType, GraphQLString } from 'graphql';
-import ClientType from '@/schemas/client/client.type';
-import Client from '../client/client.model';
+import { Client } from '../models';
+import { ClientType } from './client.type';
 
-const ProjectType = new GraphQLObjectType({
+// Project Type
+export const ProjectType = new GraphQLObjectType({
     name: 'Project',
     fields: () => ({
         id: { type: GraphQLID },
@@ -17,5 +18,3 @@ const ProjectType = new GraphQLObjectType({
         },
     }),
 });
-
-export default ProjectType;

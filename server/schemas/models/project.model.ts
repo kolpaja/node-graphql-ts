@@ -1,4 +1,4 @@
-import IProject from '@/resources/project/project.interface';
+import IProject from '@/resources/interfaces/project.interface';
 import { Schema, model } from 'mongoose';
 
 const ProjectSchema = new Schema(

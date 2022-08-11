@@ -1,7 +1,7 @@
 import { GraphQLID, GraphQLObjectType, GraphQLString } from 'graphql';
 
 //Client type
-const ClientType = new GraphQLObjectType({
+export const ClientType = new GraphQLObjectType({
     name: 'Client',
     fields: () => ({
         id: { type: GraphQLID },
@@ -10,5 +10,3 @@ const ClientType = new GraphQLObjectType({
         phone: { type: GraphQLString },
     }),
 });
-
-export default ClientType;
