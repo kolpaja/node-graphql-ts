@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent, useState } from 'react';
 import {
     AppBar,
     Container,
@@ -11,26 +11,28 @@ import {
     Button,
     Tooltip,
     Avatar,
+    useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import { ColorModeContext } from '../context/ColorModeContext';
 import { ReactComponent as GraphqlIcon } from '../assets/svg/graphql.svg';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const pages = ['clients', 'projects', 'about'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-        null
-    );
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-        null
-    );
+    const theme = useTheme();
+    const colorMode = React.useContext(ColorModeContext);
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
 
@@ -46,9 +48,23 @@ function Navbar() {
         <AppBar position="static" color="secondary">
             <Container maxWidth="xl">
                 <Toolbar>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+                    <Box
+                        sx={{
+                            display: { xs: 'none', md: 'flex' },
+                            mr: 1,
+                            pt: 1,
+                        }}
+                    >
                         <Link to="/">
-                            <GraphqlIcon />
+                            <GraphqlIcon
+                                style={{
+                                    fill: `${
+                                        theme.palette.mode === 'dark'
+                                            ? '#E10098'
+                                            : '#fff'
+                                    }`,
+                                }}
+                            />
                         </Link>
                     </Box>
 
@@ -127,6 +143,27 @@ function Navbar() {
                                 <Link to={`/${page}`}>{page}</Link>
                             </Button>
                         ))}
+                    </Box>
+
+                    <Box
+                        sx={{
+                            mr: 3,
+                        }}
+                    >
+                        <IconButton
+                            onClick={colorMode.toggleColorMode}
+                            color="inherit"
+                        >
+                            {theme.palette.mode === 'dark' ? (
+                                <Tooltip title="Turn on the light">
+                                    <DarkModeIcon />
+                                </Tooltip>
+                            ) : (
+                                <Tooltip title="Turn off the light">
+                                    <LightModeIcon />
+                                </Tooltip>
+                            )}
+                        </IconButton>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>

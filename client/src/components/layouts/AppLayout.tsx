@@ -1,5 +1,6 @@
-import { Container, Toolbar } from '@mui/material';
-import React, { ReactNode } from 'react';
+import { Toolbar } from '@mui/material';
+import { ReactNode } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from '../Navbar';
 
 interface AppLayoutProps {
@@ -9,6 +10,7 @@ interface AppLayoutProps {
 function AppLayout({ children }: AppLayoutProps) {
     return (
         <>
+            <CssBaseline />
             <Navbar />
             <Toolbar>{children}</Toolbar>
         </>
