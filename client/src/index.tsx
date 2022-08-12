@@ -6,8 +6,27 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                clients: {
+                    merge(existingData, incomingData) {
+                        return incomingData;
+                    },
+                },
+                projects: {
+                    merge(existingData, incomingData) {
+                        return incomingData;
+                    },
+                },
+            },
+        },
+    },
+});
+
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache,
     uri: 'http://localhost:2022/graphql',
 });
 

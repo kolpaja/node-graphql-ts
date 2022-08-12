@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layouts/AppLayout';
 import Home from './pages/Home';
@@ -27,6 +27,7 @@ function App() {
                 palette: {
                     mode,
                 },
+                direction: 'ltr',
             }),
         [mode]
     );
